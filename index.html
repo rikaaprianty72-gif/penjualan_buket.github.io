@@ -1,1 +1,179 @@
-hi
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bouqet Yntika</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: auto;">
+            <div style="flex-grow: 1;">
+                <h1>Bouqet Yntika</h1>
+                <p>Hallo selamat datang di pemesanan buket bunga favoritmu dengan mudah dan tentunya juga indahh hanya
+                    di store ikayntik</p>
+            </div>
+            <div onclick="toggleCart()"
+                style="cursor: pointer; background: white; color: #4169e1; padding: 10px 15px; border-radius: 50px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                🛒 Troli <span id="cart-count"
+                    style="background: red; color: white; padding: 2px 6px; border-radius: 50%; font-size: 0.8em;">0</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="produk">
+        <h2>Daftar Buket</h2>
+        <div class="card">
+            <img src="images/buket_mawar.jpg" alt="Buket Mawar"
+                style="width:100%; border-radius:5px; margin-bottom:10px; height: 150px; object-fit: cover;">
+            <h3>Buket Mawar</h3>
+            <p>Harga: Rp150.000</p>
+        </div>
+        <div class="card">
+            <img src="images/buket_lily.jpg" alt="Buket Lily"
+                style="width:100%; border-radius:5px; margin-bottom:10px; height: 150px; object-fit: cover;">
+            <h3>Buket Lily</h3>
+            <p>Harga: Rp180.000</p>
+        </div>
+        <div class="card">
+            <img src="images/buket_mix.jpg" alt="Buket Mix"
+                style="width:100%; border-radius:5px; margin-bottom:10px; height: 150px; object-fit: cover;">
+            <h3>Buket Mix</h3>
+            <p>Harga: Rp200.000</p>
+        </div>
+    </section>
+
+    <section class="form-pesan">
+        <h2>Form Pemesanan</h2>
+        <form id="orderForm">
+            <!-- Step 1: Pilihan Produk -->
+            <div id="step1">
+                <h3 style="margin-top:0; color:#4169e1;">Langkah 1: Pilih Buket</h3>
+                <!-- Pilihan Utama -->
+                <label>Jenis Buket Utama</label>
+                <select id="buket">
+                    <option value="150000">Buket Mawar (Rp150.000)</option>
+                    <option value="180000">Buket Lily (Rp180.000)</option>
+                    <option value="200000">Buket Mix (Rp200.000)</option>
+                </select>
+
+                <!-- Kustomisasi Baru -->
+                <div class="custom-options">
+                    <label>Pilihan Kertas Wrapping</label>
+                    <select id="kertas">
+                        <option value="Putih">Kertas Putih (Clean)</option>
+                        <option value="Hitam">Kertas Hitam (Elegant)</option>
+                        <option value="Pink">Kertas Pink (Soft)</option>
+                        <option value="Coklat">Kertas Kraft (Rustic)</option>
+                    </select>
+
+                    <label>Pilihan Nuansa Bunga</label>
+                    <select id="warnaBunga">
+                        <option value="Merah">Merah</option>
+                        <option value="Pink">Pink</option>
+                        <option value="Putih">Putih</option>
+                        <option value="Kuning">Kuning</option>
+                        <option value="Ungu">Ungu</option>
+                    </select>
+                </div>
+
+                <!-- Aksesoris Tambahan -->
+                <label>Aksesoris Tambahan (Opsional)</label>
+                <div class="aksesoris-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="25000" class="aksesoris" data-name="Boneka Beruang"> Boneka
+                        Beruang
+                        (+Rp25.000)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="20000" class="aksesoris" data-name="Coklat Silverqueen"> Coklat
+                        (+Rp20.000)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="10000" class="aksesoris" data-name="Lampu LED"> Lampu LED
+                        (+Rp10.000)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="5000" class="aksesoris" data-name="Kartu Ucapan Premium"> Kartu
+                        Ucapan
+                        (+Rp5.000)
+                    </label>
+                </div>
+
+                <label>Jumlah</label>
+                <input type="number" id="jumlah" min="1" value="1">
+
+                <label>Catatan Khusus</label>
+                <textarea id="catatan" placeholder="Tulis ucapan kartu atau request khusus disini..."></textarea>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="button" onclick="addToCart()" style="background: #ff8c00; flex: 1;">+ Masuk Troli
+                        🛒</button>
+                    <button type="button" onclick="showBiodata()" style="flex: 1;">Beli Sekarang <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 2: Biodata Pelanggan -->
+            <div id="step2" style="display:none;">
+                <h3 style="margin-top:0; color:#4169e1;">Langkah 2: Data Pengiriman</h3>
+
+                <!-- Admin Number (Read-only) -->
+                <div
+                    style="background: #e6f2ff; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px dashed #4169e1;">
+                    <label style="margin-top:0; font-size: 0.9em;">Nomor WhatsApp Admin (Penerima Pesanan)</label>
+                    <input type="text" id="adminWA" value="6281937215862" readonly
+                        style="background: #eee; cursor: not-allowed; color: #555;">
+                    <small style="color: #666; font-style: italic;">*Pesanan akan otomatis terkirim ke nomor
+                        ini.</small>
+                </div>
+
+                <label>Nama Lengkap</label>
+                <input type="text" id="nama" required placeholder="Masukkan nama lengkap">
+
+                <label>Nomor Telepon / WhatsApp</label>
+                <input type="tel" id="telepon" required placeholder="Contoh: 08123456789">
+
+                <label>Alamat Pengiriman</label>
+                <textarea id="alamat" rows="3" required placeholder="Jalan, Nomor Rumah, RT/RW, Kota..."></textarea>
+
+                <div class="buttons-group" style="display:flex; gap:10px;">
+                    <button type="button" onclick="backToProduct()"
+                        style="background:#ccc; color:#333;">Kembali</button>
+                    <button type="submit">Konfirmasi Pesanan</button>
+                </div>
+            </div>
+        </form>
+
+        <div id="hasil"></div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal"
+        style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+        <div class="modal-content"
+            style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; border-radius: 10px;">
+            <span onclick="toggleCart()"
+                style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h2 style="color: #4169e1;">🛒 Troli Belanja Anda</h2>
+            <div id="cartItems" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+                <!-- Items will be injected here -->
+                <p>Keranjang masih kosong.</p>
+            </div>
+            <div style="text-align: right;">
+                <h3>Total: Rp<span id="cartTotal">0</span></h3>
+                <button onclick="checkoutCart()"
+                    style="background: #4169e1; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Lanjut
+                    ke Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
